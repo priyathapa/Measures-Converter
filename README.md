@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 # Measures Converter
 
-A Flutter application to convert values between different units of **length**, **weight**, and **temperature**.
+A Flutter application to convert values between different units from one measure to another.
 
 ---
 

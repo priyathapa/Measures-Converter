@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(const MeasuresConverterApp());
 
+/// Root widget of the application
 class MeasuresConverterApp extends StatelessWidget {
   const MeasuresConverterApp({super.key});
 
@@ -18,6 +19,7 @@ class MeasuresConverterApp extends StatelessWidget {
   }
 }
 
+/// Stateful widget for the conversion page.
 class ConversionPage extends StatefulWidget {
   const ConversionPage({super.key});
 
@@ -25,7 +27,9 @@ class ConversionPage extends StatefulWidget {
   State<ConversionPage> createState() => _ConversionPageState();
 }
 
+/// State class for Conversion Page.
 class _ConversionPageState extends State<ConversionPage> {
+   // Controller for the input value TextField.
   final TextEditingController value = TextEditingController();
 
   String fromUnit = '';
@@ -38,19 +42,23 @@ class _ConversionPageState extends State<ConversionPage> {
   void initState() {
     super.initState();
 
+    // Initialize units (length, weight, temperature).
     units = [
       'meters', 'centimeters', 'kilometers', 'inches', 'feet', 'miles',
       'grams', 'kilograms', 'pounds', 'ounces',
       'celsius', 'fahrenheit', 'kelvin',
     ];
+    // Set default units.
     fromUnit = units.first;
     toUnit = units[1];
   }
 
+  /// Function to perform conversion when button is pressed.
   void convert() {
     final input = double.tryParse(value.text);
     if (input == null) return;
-
+    
+    // Update the result.
     setState(() {
       result = UnitConverter.convert(input, fromUnit, toUnit);
     });
@@ -73,6 +81,7 @@ class _ConversionPageState extends State<ConversionPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 8),
+            // Label for input.
             const Text(
               'Value',
               style: TextStyle(
@@ -82,6 +91,7 @@ class _ConversionPageState extends State<ConversionPage> {
               ),
             ),
             const SizedBox(height: 8),
+            // Input TextField where the user can enter a value.
             TextField(
               controller: value,
               keyboardType: TextInputType.number,
@@ -100,6 +110,7 @@ class _ConversionPageState extends State<ConversionPage> {
               ),
             ),
             const SizedBox(height: 20),
+            // "From" label.
             const Text(
               'From',
               style: TextStyle(
@@ -108,6 +119,7 @@ class _ConversionPageState extends State<ConversionPage> {
                 color: Color.fromARGB(255, 137, 135, 135),
               ),
             ),
+            // Dropdown for selecting "from" unit.
             DropdownButton<String>(
               value: fromUnit,
               isExpanded: true,
@@ -124,6 +136,7 @@ class _ConversionPageState extends State<ConversionPage> {
                   .toList(),
             ),
             const SizedBox(height: 16),
+            // To label.
             const Text(
               'To',
               style: TextStyle(
@@ -132,6 +145,7 @@ class _ConversionPageState extends State<ConversionPage> {
                 color: Color.fromARGB(255, 137, 135, 135),
               ),
             ),
+            // Dropdown for selecting "to" unit.
             DropdownButton<String>(
               value: toUnit,
               isExpanded: true,
@@ -148,6 +162,7 @@ class _ConversionPageState extends State<ConversionPage> {
                   .toList(),
             ),
             const SizedBox(height: 20),
+            // Convert button.
             ElevatedButton(
               onPressed: convert,
               style: ElevatedButton.styleFrom(
@@ -169,6 +184,7 @@ class _ConversionPageState extends State<ConversionPage> {
               ),
             ),
             const SizedBox(height: 20),
+            // Display conversion result.
             if (result != null)
               Text(
                 '${value.text} $fromUnit are ${result!.toStringAsFixed(3)} $toUnit',
@@ -186,7 +202,7 @@ class _ConversionPageState extends State<ConversionPage> {
   }
 }
 
-/// Conversion logic
+/// Class that handles unit conversion logic
 class UnitConverter {
   static double convert(double value, String fromUnit, String toUnit) {
     if (_isTemperature(fromUnit, toUnit)) {
@@ -201,6 +217,7 @@ class UnitConverter {
         ['celsius', 'fahrenheit', 'kelvin'].contains(to);
   }
 
+  /// Convert temperature between Celsius, Fahrenheit, and Kelvin.
   static double _convertTemperature(double value, String from, String to) {
     double celsius;
     switch (from) {
@@ -228,7 +245,8 @@ class UnitConverter {
         throw Exception('Unknown temp unit: $to');
     }
   }
-
+  
+ /// Returns factor to convert unit to base unit (meters for length, grams for weight).
   static double _toBaseFactor(String unit) {
     switch (unit) {
       // Length

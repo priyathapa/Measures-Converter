@@ -14,3 +14,36 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+# Measures Converter
+
+A Flutter application to convert values between different units of **length**, **weight**, and **temperature**.
+
+---
+
+## Features
+
+- Convert **length** units: meters, centimeters, kilometers, inches, feet, miles
+- Convert **weight** units: grams, kilograms, pounds, ounces
+- Convert **temperature** units: celsius, fahrenheit, kelvin
+- Clean and simple UI with dropdowns for selecting units
+- Real-time conversion with results displayed instantly
+- Uses [Google Fonts](https://pub.dev/packages/google_fonts) for modern typography
+
+---
+
+
+## Getting Started
+
+### Prerequisites
+
+- Flutter SDK installed ([installation guide](https://docs.flutter.dev/get-started/install))
+- A code editor (VS Code, Android Studio, etc.)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/measures_converter.git
+cd measures_converter
